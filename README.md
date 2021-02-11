@@ -1,16 +1,24 @@
 # quel_est_ce_code_postal
 
-A new Flutter project.
+"Quel est ce code postal" est une application mobile et web codé avec Flutter qui donne la ou les villes associée(s) au code postal recherché.
 
-## Getting Started
+# Installation 
 
-This project is a starting point for a Flutter application.
+- Installer Flutter
 
-A few resources to get you started if this is your first Flutter project:
+# Lancement 
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+Sur mobile :
+- `flutter run`
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Sur Google Chrome :
+- `flutter run -d chrome`
+
+# Preview
+
+## On chrome
+
+![ Travel App animation](./quel_est_ce_code_postal.gif)
+
+
+
