@@ -21,7 +21,7 @@ Sur Google Chrome :
 
 ## On chrome
 
-![ Travel App animation](./quel_est_ce_code_postal.gif)
+![ Quel est ce code postal animation](./quel_est_ce_code_postal.gif)
 
 
 
