@@ -23,7 +23,7 @@ jobs:
         uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: "${{ secrets.GITHUB_TOKEN }}"
-          firebaseServiceAccount: "${{ secrets.FIREBASE_SERVICE_ACCOUNT_ENJOYHARMONICA_WEBSITE }}"
-          projectId: enjoyharmonica-website
+          firebaseServiceAccount: "${{ secrets.FIREBASE_SERVICE_ACCOUNT_QUEL_EST_CE_CODE_POSTAL }}"
+          projectId: quel-est-ce-code-postal
         env:
           FIREBASE_CLI_PREVIEWS: hostingchannels
