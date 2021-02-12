@@ -10,12 +10,15 @@ class CityItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      child: ListTile(
-        contentPadding: EdgeInsets.all(12.0),
-        trailing: Icon(Icons.launch),
-        title: Text(
-          '$cityName',
+    return Padding(
+      padding: const EdgeInsets.all(2.0),
+      child: Card(
+        child: ListTile(
+          contentPadding: EdgeInsets.all(12.0),
+          trailing: Icon(Icons.launch),
+          title: Text('$cityName',
+              style: TextStyle(
+                  color: Colors.blue[900], fontWeight: FontWeight.bold)),
         ),
       ),
     );
