@@ -31,4 +31,3 @@ jobs:
           projectId: enjoyharmonica-website
         env:
           FIREBASE_CLI_PREVIEWS: hostingchannels
-© 2021 GitHub, Inc.
