@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class CityItem extends StatelessWidget {
   final String cityName;
@@ -8,6 +9,15 @@ class CityItem extends StatelessWidget {
     Key key,
   }) : super(key: key);
 
+  void _launchURL(String place) async {
+    final url = 'https://www.google.com/maps/place/$place';
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -15,10 +25,14 @@ class CityItem extends StatelessWidget {
       child: Card(
         child: ListTile(
           contentPadding: EdgeInsets.all(12.0),
-          trailing: Icon(Icons.launch),
+          trailing: IconButton(
+            icon: Icon(Icons.map_outlined),
+            onPressed: () => _launchURL(cityName),
+          ),
           title: Text('$cityName',
               style: TextStyle(
-                  color: Colors.blue[900], fontWeight: FontWeight.bold)),
+                  color: Theme.of(context).primaryColor,
+                  fontWeight: FontWeight.bold)),
         ),
       ),
     );
