@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:quel_est_ce_code_postal/widgets/animated_screen.dart';
+import 'package:quel_est_ce_code_postal/widgets/animated_screen/animated_screen.dart';
 
-import 'package:quel_est_ce_code_postal/widgets/search_field.dart';
+import 'package:quel_est_ce_code_postal/widgets/search_field/search_field.dart';
+import 'package:quel_est_ce_code_postal/widgets/title_panel/title_panel.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key key}) : super(key: key);
@@ -17,23 +18,7 @@ class HomeScreen extends StatelessWidget {
                 vertical: MediaQuery.of(context).size.height * 0.05),
             child: Column(
               children: [
-                Column(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(top: 30.0),
-                      child: Text('Quel est ce code postal ?',
-                          textAlign: TextAlign.center,
-                          style: Theme.of(context).textTheme.headline4),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(bottom: 30.0, top: 30.0),
-                      child: Text(
-                        'Entrez un code postal et trouver la ville associée !',
-                        textAlign: TextAlign.center,
-                      ),
-                    ),
-                  ],
-                ),
+                TitlePanel(),
                 Expanded(child: SearchField()),
               ],
             ),
