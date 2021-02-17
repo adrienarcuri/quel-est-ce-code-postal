@@ -3,8 +3,20 @@ import 'package:google_fonts/google_fonts.dart';
 
 ThemeData buildAppTheme(BuildContext context) {
   final ThemeData base = ThemeData.light();
+  final textTheme = Theme.of(context).textTheme;
+
   return base.copyWith(
-    textTheme: GoogleFonts.ptSansTextTheme(Theme.of(context).textTheme),
+    // textTheme
+    textTheme: GoogleFonts.loraTextTheme(textTheme).copyWith(
+      bodyText1: GoogleFonts.roboto(textStyle: textTheme.bodyText1),
+      bodyText2: GoogleFonts.roboto(textStyle: textTheme.bodyText2),
+      button: GoogleFonts.roboto(textStyle: textTheme.button),
+      caption: GoogleFonts.roboto(textStyle: textTheme.caption),
+      overline: GoogleFonts.roboto(textStyle: textTheme.overline),
+      //subtitle1: GoogleFonts.roboto(textStyle: textTheme.subtitle1),
+      subtitle2: GoogleFonts.roboto(textStyle: textTheme.subtitle2),
+    ),
+    // Colors
     accentColor: Colors.grey,
     primaryColor: Colors.black,
     iconTheme: base.iconTheme.copyWith(

@@ -29,10 +29,8 @@ class CityItem extends StatelessWidget {
             icon: Icon(Icons.map_outlined),
             onPressed: () => _launchURL(cityName),
           ),
-          title: Text('$cityName',
-              style: TextStyle(
-                  color: Theme.of(context).primaryColor,
-                  fontWeight: FontWeight.bold)),
+          title:
+              Text('$cityName', style: Theme.of(context).textTheme.bodyText1),
         ),
       ),
     );

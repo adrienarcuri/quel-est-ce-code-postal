@@ -49,8 +49,8 @@ class _SearchFieldState extends State<SearchField> {
             maxLines: 1,
             style: TextStyle(
               //color: Colors.black,
-              fontSize: 22.0,
-              letterSpacing: 5.0,
+              fontSize: 20.0,
+              letterSpacing: 4.0,
             ),
             inputFormatters: [
               FilteringTextInputFormatter.digitsOnly,
@@ -58,7 +58,7 @@ class _SearchFieldState extends State<SearchField> {
             decoration: InputDecoration(
                 contentPadding:
                     EdgeInsets.symmetric(horizontal: 20.0, vertical: 5.0),
-                labelText: 'Code Postal',
+                labelText: 'Code Postal - Exemple: 34000',
                 labelStyle: TextStyle(height: 0.9),
                 suffixIcon: Padding(
                   padding: const EdgeInsets.all(20.0),
