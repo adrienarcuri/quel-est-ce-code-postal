@@ -38,111 +38,115 @@ class _SearchFieldState extends State<SearchField> {
     return Form(
       key: _formKey,
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          TextFormField(
-            focusNode: _searchFocusNode,
-            controller: _searchController,
-            textAlign: TextAlign.center,
-            keyboardType: TextInputType.number,
-            maxLength: 5,
-            minLines: 1,
-            maxLines: 1,
-            style: TextStyle(
-              //color: Colors.black,
-              fontSize: 20.0,
-              letterSpacing: 4.0,
-            ),
-            inputFormatters: [
-              FilteringTextInputFormatter.digitsOnly,
-            ],
-            decoration: InputDecoration(
-                contentPadding:
-                    EdgeInsets.symmetric(horizontal: 20.0, vertical: 5.0),
-                labelText: 'Code Postal - Exemple: 34000',
-                labelStyle: TextStyle(height: 0.9),
-                suffixIcon: Padding(
-                  padding: const EdgeInsets.all(20.0),
-                  child: Icon(
-                    Icons.search,
-                    size: 30.0,
-                    //color: Colors.white,
+          Padding(
+            padding: const EdgeInsets.all(40.0),
+            child: TextFormField(
+              focusNode: _searchFocusNode,
+              controller: _searchController,
+              textAlign: TextAlign.center,
+              keyboardType: TextInputType.number,
+              maxLength: 5,
+              minLines: 1,
+              maxLines: 1,
+              style: TextStyle(
+                //color: Colors.black,
+                fontSize: 20.0,
+                letterSpacing: 4.0,
+              ),
+              inputFormatters: [
+                FilteringTextInputFormatter.digitsOnly,
+              ],
+              decoration: InputDecoration(
+                  contentPadding:
+                      EdgeInsets.symmetric(horizontal: 20.0, vertical: 5.0),
+                  labelText: 'Code Postal - Exemple: 34000',
+                  labelStyle: TextStyle(height: 0.9),
+                  suffixIcon: Padding(
+                    padding: const EdgeInsets.all(20.0),
+                    child: Icon(
+                      Icons.search,
+                      size: 30.0,
+                      //color: Colors.white,
+                    ),
                   ),
-                ),
-                //hintText: _hintText,
-                hintMaxLines: 1,
-                //fillColor: Colors.white,
-                filled: true,
-                helperText: _helperText,
-                helperStyle: TextStyle(fontSize: 14)),
-            onChanged: (text) {
-              setState(() {
-                int textSize = text.length;
-                switch (textSize) {
-                  case 0:
-                    _helperText = 'Entrez un code postal à 5 chiffres 😇';
-                    break;
-                  case 1:
-                    _helperText = 'Encore 4 chiffres 😃';
-                    break;
-                  case 2:
-                    _helperText = 'Encore 3 chiffres 😬';
-                    break;
-                  case 3:
-                    _helperText = 'Et Encore 2 chiffres 😤';
-                    break;
-                  case 4:
-                    _helperText = 'Plus que 1... 🥵';
-                    break;
-                  case 5:
-                    _helperText = 'Parfait ! 😉';
+                  //hintText: _hintText,
+                  hintMaxLines: 1,
+                  //fillColor: Colors.white,
+                  filled: true,
+                  helperText: _helperText,
+                  helperStyle: TextStyle(fontSize: 14)),
+              onChanged: (text) {
+                setState(() {
+                  int textSize = text.length;
+                  switch (textSize) {
+                    case 0:
+                      _helperText = 'Entrez un code postal à 5 chiffres 😇';
+                      break;
+                    case 1:
+                      _helperText = 'Encore 4 chiffres 😃';
+                      break;
+                    case 2:
+                      _helperText = 'Encore 3 chiffres 😬';
+                      break;
+                    case 3:
+                      _helperText = 'Et Encore 2 chiffres 😤';
+                      break;
+                    case 4:
+                      _helperText = 'Plus que 1... 🥵';
+                      break;
+                    case 5:
+                      _helperText = 'Parfait ! 😉';
 
-                    break;
-                  default:
+                      break;
+                    default:
+                  }
+                });
+              },
+              validator: (value) {
+                if (value.isEmpty) {
+                  return "Entrez un code postal s'il vous plaît !";
                 }
-              });
-            },
-            validator: (value) {
-              if (value.isEmpty) {
-                return "Entrez un code postal s'il vous plaît !";
-              }
-              if (value.length != 5) {
-                return "Le code postal doit comporter 5 chiffres, par exemple : 34000";
-              }
-              return null;
-            },
-          ),
-          SizedBox(
-            height: 30.0,
+                if (value.length != 5) {
+                  return "Le code postal doit comporter 5 chiffres, par exemple : 34000";
+                }
+                return null;
+              },
+            ),
           ),
           if (_searchController.text.length == 5)
             FutureBuilder(
               future: fetchCommune(_searchController.text),
               builder:
                   (context, AsyncSnapshot<List<CityModel>> citiesSnapshot) {
-                var children = [];
                 if (citiesSnapshot.hasData) {
-                  Widget nbResult = Center(
-                    child: Text(
-                        'Nombre de résultat(s): ${citiesSnapshot.data.length}'),
-                  );
-
-                  children = [
-                    nbResult,
-                    SizedBox(
-                      height: 20.0,
+                  return Expanded(
+                    child: Column(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text(
+                              'Nombre de résultats : ${citiesSnapshot.data.length}'),
+                        ),
+                        Expanded(
+                          child: ListView.builder(
+                              itemCount: citiesSnapshot.data.length,
+                              itemBuilder: (BuildContext context, int index) {
+                                return CityItem(
+                                    cityName: citiesSnapshot.data[index].name);
+                              }),
+                        ),
+                      ],
                     ),
-                    ...citiesSnapshot.data
-                        .map((CityModel city) => CityItem(cityName: city.name))
-                        .toList()
-                  ];
+                  );
                 } else if (citiesSnapshot.hasError) {
-                  children = [Text('Aucun résultat')];
+                  return Text('Aucun résultat');
                 } else {
-                  children = [CircularProgressIndicator()];
+                  return CircularProgressIndicator();
                 }
-                return Column(children: [...children]);
               },
-            )
+            ),
         ],
       ),
     );

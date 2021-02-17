@@ -15,22 +15,26 @@ class HomeScreen extends StatelessWidget {
             padding: EdgeInsets.symmetric(
                 horizontal: MediaQuery.of(context).size.width * 0.10,
                 vertical: MediaQuery.of(context).size.height * 0.05),
-            child: ListView(
+            child: Column(
               children: [
-                Padding(
-                  padding: const EdgeInsets.only(top: 30.0),
-                  child: Text('Quel est ce code postal ?',
-                      textAlign: TextAlign.center,
-                      style: Theme.of(context).textTheme.headline4),
+                Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(top: 30.0),
+                      child: Text('Quel est ce code postal ?',
+                          textAlign: TextAlign.center,
+                          style: Theme.of(context).textTheme.headline4),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 30.0, top: 30.0),
+                      child: Text(
+                        'Entrez un code postal et trouver la ville associée !',
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                  ],
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 30.0, top: 10.0),
-                  child: Text(
-                    'Entrez un code postal et trouver la ville associée !',
-                    textAlign: TextAlign.center,
-                  ),
-                ),
-                SearchField(),
+                Expanded(child: SearchField()),
               ],
             ),
           ),
