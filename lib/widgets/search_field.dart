@@ -16,6 +16,7 @@ class SearchField extends StatefulWidget {
 class _SearchFieldState extends State<SearchField> {
   final _formKey = GlobalKey<FormState>();
   String _helperText = 'Entrez un code postal à 5 chiffres 😇';
+  Color _textColor = Colors.black;
 
   final TextEditingController _searchController = TextEditingController();
   final FocusNode _searchFocusNode = FocusNode();
@@ -48,53 +49,57 @@ class _SearchFieldState extends State<SearchField> {
             minLines: 1,
             maxLines: 1,
             style: TextStyle(
-              //color: Colors.black,
-              fontSize: 20.0,
-              letterSpacing: 4.0,
+              color: _textColor,
+              fontSize: 39.0,
+              letterSpacing: 10.0,
             ),
             inputFormatters: [
               FilteringTextInputFormatter.digitsOnly,
             ],
             decoration: InputDecoration(
-                contentPadding:
-                    EdgeInsets.symmetric(horizontal: 20.0, vertical: 5.0),
-                labelText: 'Code Postal - Exemple: 34000',
-                labelStyle: TextStyle(height: 0.9),
-                suffixIcon: Padding(
-                  padding: const EdgeInsets.all(20.0),
-                  child: Icon(
-                    Icons.search,
-                    size: 30.0,
-                    //color: Colors.white,
-                  ),
-                ),
-                //hintText: _hintText,
-                hintMaxLines: 1,
-                //fillColor: Colors.white,
-                filled: true,
-                helperText: _helperText,
-                helperStyle: TextStyle(fontSize: 14)),
+              contentPadding: EdgeInsets.symmetric(vertical: 20.0),
+              hintText: 'Code Postal',
+              hintStyle: TextStyle(
+                  fontSize: 39.0,
+                  letterSpacing: 1.0,
+                  color: Colors.grey.withOpacity(0.4)),
+              hintMaxLines: 1,
+              filled: true,
+              helperText: _helperText,
+              helperStyle: TextStyle(fontSize: 14),
+              counter: Text(''),
+            ),
             onChanged: (text) {
               setState(() {
                 int textSize = text.length;
                 switch (textSize) {
                   case 0:
-                    _helperText = 'Entrez un code postal à 5 chiffres 😇';
+                    _helperText = 'Entrez un code postal à 5 chiffres';
+
                     break;
                   case 1:
-                    _helperText = 'Encore 4 chiffres 😃';
+                    _helperText = 'Encore 4 chiffres 🥵';
+                    _textColor = Colors.black26;
+
                     break;
                   case 2:
-                    _helperText = 'Encore 3 chiffres 😬';
+                    _helperText = 'Encore 3 chiffres 😤';
+                    _textColor = Colors.black38;
                     break;
                   case 3:
-                    _helperText = 'Et Encore 2 chiffres 😤';
+                    _helperText = 'Encore 2 chiffres 😬';
+                    _textColor = Colors.black45;
                     break;
                   case 4:
-                    _helperText = 'Plus que 1... 🥵';
+                    _helperText = 'Encore 1 chiffre  😃';
+                    _textColor = Colors.black54;
+
                     break;
                   case 5:
                     _helperText = 'Parfait ! 😉';
+                    _textColor = Colors.black87;
+
+                    _searchFocusNode.unfocus();
 
                     break;
                   default:
@@ -136,7 +141,10 @@ class _SearchFieldState extends State<SearchField> {
                         .toList()
                   ];
                 } else if (citiesSnapshot.hasError) {
-                  children = [Text('Aucun résultat')];
+                  children = [
+                    Text(
+                        'Aucun résultat associé à ce code postal 😓... \n\nSoit le code postal saisi est invalide, soit la base de données que nous interrogeons ne le contient pas.')
+                  ];
                 } else {
                   children = [CircularProgressIndicator()];
                 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:quel_est_ce_code_postal/screens/home.dart';
+import 'package:quel_est_ce_code_postal/screens/home_screen.dart';
+import 'package:quel_est_ce_code_postal/screens/info_screen.dart';
 import 'package:quel_est_ce_code_postal/theme.dart';
 
 void main() {
@@ -14,6 +15,10 @@ class MyApp extends StatelessWidget {
       title: 'Quel est ce code postal ?',
       theme: buildAppTheme(context),
       home: HomeScreen(),
+      routes: {
+        HomeScreen.routeName: (context) => HomeScreen(),
+        InfoScreen.routeName: (context) => InfoScreen(),
+      },
     );
   }
 }
