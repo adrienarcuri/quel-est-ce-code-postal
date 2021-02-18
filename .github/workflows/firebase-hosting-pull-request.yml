@@ -15,8 +15,8 @@ jobs:
         run: flutter config --enable-web
       - name: "Run flutter pub get"
         run: flutter pub get
-      # - name: "Do flutter tests"
-      #   run: flutter test
+      - name: "Do flutter tests"
+        run: flutter test
       - name: "Build web app"
         run: flutter build web
       - name: "Deploy to Firebase Hosting"
