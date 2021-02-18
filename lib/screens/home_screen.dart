@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:quel_est_ce_code_postal/constants.dart' as constants;
 import 'package:quel_est_ce_code_postal/screens/info_screen.dart';
-import 'package:quel_est_ce_code_postal/widgets/animated_screen.dart';
-
-import 'package:quel_est_ce_code_postal/widgets/search_field.dart';
+import 'package:quel_est_ce_code_postal/widgets/animated_screen/animated_screen.dart';
+import 'package:quel_est_ce_code_postal/widgets/search_field/search_field.dart';
+import 'package:quel_est_ce_code_postal/widgets/title_panel/title_panel.dart';
 
 class HomeScreen extends StatelessWidget {
   static const routeName = '/home';
+
   const HomeScreen({Key key}) : super(key: key);
 
   @override
@@ -14,27 +16,20 @@ class HomeScreen extends StatelessWidget {
       child: Scaffold(
         floatingActionButton: IconButton(
             icon: Icon(Icons.info_outline),
-            onPressed: () {
-              Navigator.pushReplacementNamed(context, InfoScreen.routeName);
-            }),
+            onPressed: () => Navigator.of(context)
+                .pushReplacementNamed(InfoScreen.routeName)),
         body: AnimatedScreen(
-          child: ListView(
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(top: 30.0),
-                child: Text('Quel est ce code postal ?',
-                    textAlign: TextAlign.center,
-                    style: Theme.of(context).textTheme.headline4),
+          child: Padding(
+            padding: const EdgeInsets.all(constants.screenPadding),
+            child: ConstrainedBox(
+              constraints: BoxConstraints(maxWidth: constants.screenMaxWidth),
+              child: Column(
+                children: [
+                  TitlePanel(),
+                  Expanded(child: SearchField()),
+                ],
               ),
-              Padding(
-                padding: const EdgeInsets.only(bottom: 30.0, top: 10.0),
-                child: Text(
-                  'Entrez un code postal et trouver la ville associée !',
-                  textAlign: TextAlign.center,
-                ),
-              ),
-              SearchField(),
-            ],
+            ),
           ),
         ),
       ),

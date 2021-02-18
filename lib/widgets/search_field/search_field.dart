@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:quel_est_ce_code_postal/models/city_model.dart';
 import 'package:quel_est_ce_code_postal/services/postal_code_service.dart';
-import 'package:quel_est_ce_code_postal/widgets/city_item.dart';
+import 'package:quel_est_ce_code_postal/widgets/city_item/city_item.dart';
 
 class SearchField extends StatefulWidget {
   SearchField({Key key}) : super(key: key);
@@ -39,6 +39,7 @@ class _SearchFieldState extends State<SearchField> {
     return Form(
       key: _formKey,
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
         children: [
           TextFormField(
             focusNode: _searchFocusNode,
@@ -116,41 +117,39 @@ class _SearchFieldState extends State<SearchField> {
               return null;
             },
           ),
-          SizedBox(
-            height: 30.0,
-          ),
           if (_searchController.text.length == 5)
             FutureBuilder(
               future: fetchCommune(_searchController.text),
               builder:
                   (context, AsyncSnapshot<List<CityModel>> citiesSnapshot) {
-                var children = [];
                 if (citiesSnapshot.hasData) {
-                  Widget nbResult = Center(
-                    child: Text(
-                        'Nombre de résultat(s): ${citiesSnapshot.data.length}'),
-                  );
-
-                  children = [
-                    nbResult,
-                    SizedBox(
-                      height: 20.0,
+                  return Expanded(
+                    child: Column(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text(
+                              'Nombre de résultats : ${citiesSnapshot.data.length}'),
+                        ),
+                        Expanded(
+                          child: ListView.builder(
+                              itemCount: citiesSnapshot.data.length,
+                              itemBuilder: (BuildContext context, int index) {
+                                return CityItem(
+                                    cityName: citiesSnapshot.data[index].name);
+                              }),
+                        ),
+                      ],
                     ),
-                    ...citiesSnapshot.data
-                        .map((CityModel city) => CityItem(cityName: city.name))
-                        .toList()
-                  ];
+                  );
                 } else if (citiesSnapshot.hasError) {
-                  children = [
-                    Text(
-                        'Aucun résultat associé à ce code postal 😓... \n\nSoit le code postal saisi est invalide, soit la base de données que nous interrogeons ne le contient pas.')
-                  ];
+                  return Text(
+                      'Aucun résultat associé à ce code postal 😓... \n\nSoit le code postal saisi est invalide, soit la base de données que nous interrogeons ne le contient pas.');
                 } else {
-                  children = [CircularProgressIndicator()];
+                  return CircularProgressIndicator();
                 }
-                return Column(children: [...children]);
               },
-            )
+            ),
         ],
       ),
     );
