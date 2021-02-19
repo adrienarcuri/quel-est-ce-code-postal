@@ -7,7 +7,8 @@ class CityItem extends StatelessWidget {
   const CityItem({
     @required this.cityName,
     Key key,
-  }) : super(key: key);
+  })  : assert(cityName != null),
+        super(key: key);
 
   void _launchURL(String place) async {
     final url = 'https://www.google.com/maps/place/$place';
