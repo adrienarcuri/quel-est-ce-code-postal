@@ -5,7 +5,6 @@ import 'package:flutter/services.dart';
 import 'package:quel_est_ce_code_postal/models/city_model.dart';
 import 'package:quel_est_ce_code_postal/services/postal_code_service.dart';
 import 'package:quel_est_ce_code_postal/widgets/city_item/city_item.dart';
-import 'package:http/http.dart' as http;
 
 class SearchField extends StatefulWidget {
   SearchField({Key key}) : super(key: key);

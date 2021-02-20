@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:quel_est_ce_code_postal/screens/home_screen.dart';
 import 'package:quel_est_ce_code_postal/screens/info_screen.dart';
 import 'package:quel_est_ce_code_postal/theme.dart';
-import 'globals.dart' as globals;
 
 void main() {
   runApp(MyApp());
