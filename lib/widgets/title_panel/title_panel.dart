@@ -17,7 +17,7 @@ class TitlePanel extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(bottom: 30.0, top: 30.0),
             child: Text(
-              'Entrez un code postal et trouver la ville associée !',
+              'Entrez un code postal et trouvez la ville associée !',
               textAlign: TextAlign.center,
             ),
           ),
